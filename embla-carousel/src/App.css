@@ -1,0 +1,83 @@
+:root {
+  --app-width: 480px;
+}
+#root {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+  max-width: var(--app-width);
+  margin: 0 auto;
+}
+
+.wrapper {
+  max-width: var(--app-width);
+  width: 100%;
+  margin: 0 auto;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.embla {
+  width: 100%;
+  max-width: var(--app-width);
+  height: 100%;
+  background: #efe;
+  border-radius: 1rem;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+.embla__container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+.embla__slide {
+  flex: 0 0 100%;
+  min-width: 0;
+  max-width: var(--app-width);
+  height: 100%;
+}
+
+nav {
+  box-sizing: border-box;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  grid-gap: 1rem;
+  width: 100%;
+}
+
+nav > button {
+  border: none;
+  border-radius: 1rem;
+  padding: 0.5rem 1rem;
+  text-align: center;
+  text-transform: uppercase;
+  background: #ccc;
+  color: #000;
+  cursor: pointer;
+}
+nav > button.selected {
+  background: #fff;
+  box-shadow: 1px 1px 16px #fffc;
+}
+
+section {
+  width: 100%;
+  height: 100%;
+  padding: 2rem;
+  font-size: 4rem;
+  font-weight: 600;
+  box-sizing: border-box;
+}
+
+h2 {
+  font-size: 4rem;
+  margin: 0;
+  padding: 0;
+}
