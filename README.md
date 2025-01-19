@@ -36,12 +36,12 @@ https://github.com/Splidejs/splide
 
 Ironically, the only library to raise accessibility
 error.
-Otherwise, feels exactly like swiper.
+No animation for programmatic movements.
 
 ```
 dist/index.html                   0.46 kB │ gzip:  0.29 kB
-dist/assets/index-D1rm0Ml8.css    6.35 kB │ gzip:  1.75 kB
-dist/assets/index-CgciiA9g.js   179.59 kB │ gzip: 61.56 kB
+dist/assets/index-DKNZ7vJe.css    6.35 kB │ gzip:  1.75 kB
+dist/assets/index-ld1cfayq.js   179.58 kB │ gzip: 61.55 kB
 ```
 
 ## Tiny Slider
