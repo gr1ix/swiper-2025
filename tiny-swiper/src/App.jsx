@@ -1,68 +1,27 @@
-import { useState, useRef } from 'react'
+import {
+  createElement, useState, useRef,
+} from 'react'
 import './App.css'
 import cn from 'clsx'
+import {
+  pages, page_to_component, page_to_title,
+} from './pages'
 
 import Swiper from 'tiny-swiper'
 
-const PAGES = [ "Main", "Settings" ]
-const PAGE_TO_COMPONENT = {
-  "Main": ({navigate}) => (
-    <section style={{background: 'red'}}>
-      <h2>Main page</h2>
-      <button onClick={navigate.bind(null, "Settings")}>Open Settings</button>
-    </section>
-  ),
-  "Settings": () => (
-    <section style={{background: 'tan'}}>
-      Settings page
-    </section>
-  ),
-}
-const PAGE_TO_TITLE = {
-  "Main": "Main",
-  "Settings": "Settings",
-}
-
-function App() {
+export default function App() {
   const [page, setPage] = useState(0)
   const swiper = useRef(null)
 
   const navigate = (page) => {
-    const index = PAGES.indexOf(page)
+    const index = pages.indexOf(page)
     if (index === -1) return
 
-    setPage(index)
-    if (swiper.current) swiper.current.slideTo(index)
+    if (swiper.current) {
+      swiper.current.slideTo(index)
+      setPage(index)
+    }
   }
-
-  const PagesJsx = PAGES.map((E, i) => {
-    const Comp = PAGE_TO_COMPONENT[E]
-    return (
-      <div className="swiper-slide" key={i}>
-        <Comp navigate={navigate}/>
-      </div>
-    )
-  })
-
-  const navJsx = (
-    <nav className={PAGES.length < 3 ? 'justify-around' : ''}>
-      {
-        PAGES.map((p, i) => {
-          return (
-            <button
-              key={p}
-              className={cn({
-                selected: page === i,
-              })}
-              onClick={() => navigate(p)}
-            >
-              {PAGE_TO_TITLE[p]}
-            </button>
-          )
-        })
-      }
-    </nav>
-  )
 
   return (
     <div className="wrapper">
@@ -74,6 +33,7 @@ function App() {
           }
           const sw = new Swiper(elem, {
             initialSlide: page,
+            speed: 500,
             spaceBetween: 32,
             centeredSlides: true,
           })
@@ -86,12 +46,25 @@ function App() {
         }}
       >
         <div className="swiper-wrapper">
-          {PagesJsx}
+          {pages.map((pageId) => (
+            <div className="swiper-slide" key={pageId}>
+            {createElement(page_to_component[pageId], { navigate }, null)}
+            </div>
+          ))}
         </div>
       </div>
-      {navJsx}
+
+      <nav className={cn({'justify-around': pages.length < 3})}>
+        {pages.map((pageId, i) => (
+          <button
+            key={pageId}
+            className={cn({ selected: page === i })}
+            onClick={() => navigate(pageId)}
+          >
+            {page_to_title[pageId]}
+          </button>
+        ))}
+      </nav>
     </div>
   )
 }
-
-export default App

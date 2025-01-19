@@ -1,9 +1,11 @@
-import { createElement, useState, useRef } from 'react'
+import {
+  createElement, useState, useRef,
+} from 'react'
 import './App.css'
 import cn from 'clsx'
 import {
-  pages, page_to_component, page_to_title
-} from './pages.tsx'
+  pages, page_to_component, page_to_title,
+} from './pages'
 
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'

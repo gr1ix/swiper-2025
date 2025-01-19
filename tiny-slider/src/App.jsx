@@ -1,69 +1,27 @@
-import { useState, useRef } from 'react'
+import {
+  createElement, useState, useRef,
+} from 'react'
 import './App.css'
 import cn from 'clsx'
+import {
+  pages, page_to_component, page_to_title,
+} from './pages'
 
 import 'tiny-slider/dist/tiny-slider.css'
 import {tns} from 'tiny-slider'
 
-const PAGES = [ "Main", "Settings" ]
-const PAGE_TO_COMPONENT = {
-  "Main": ({navigate}) => (
-    <section style={{background: 'red'}}>
-      <h2>Main page</h2>
-      <button onClick={navigate.bind(null, "Settings")}>Open Settings</button>
-    </section>
-  ),
-  "Settings": () => (
-    <section style={{background: 'tan'}}>
-      Settings page
-    </section>
-  ),
-}
-const PAGE_TO_TITLE = {
-  "Main": "Main",
-  "Settings": "Settings",
-}
-
-function App() {
+export default function App() {
   const [page, setPage] = useState(0)
   const tinySlider = useRef(null)
 
   const navigate = (page) => {
-    const index = PAGES.indexOf(page)
+    const index = pages.indexOf(page)
     if (index === -1) return
 
-    setPage(index)
-    if (tinySlider.current) tinySlider.current.goTo(index)
+    if (tinySlider.current) {
+      tinySlider.current.goTo(index, 500)
+    }
   }
-
-  const PagesJsx = PAGES.map((E, i) => {
-    const Comp = PAGE_TO_COMPONENT[E]
-    return (
-      <div className="swiper-slide" key={i}>
-        <Comp navigate={navigate}/>
-      </div>
-    )
-  })
-
-  const navJsx = (
-    <nav className={PAGES.length < 3 ? 'justify-around' : ''}>
-      {
-        PAGES.map((p, i) => {
-          return (
-            <button
-              key={p}
-              className={cn({
-                selected: page === i,
-              })}
-              onClick={() => navigate(p)}
-            >
-              {PAGE_TO_TITLE[p]}
-            </button>
-          )
-        })
-      }
-    </nav>
-  )
 
   return (
     <div className="wrapper">
@@ -77,28 +35,45 @@ function App() {
             container,
             //gutter: 32,
             //autoWidth: true,
-            fixedWidth: 480,
+            slideBy: 'page',
+            //fixedWidth: 480,
+            viewportMax: 480,
             controls: false,
             nav: false,
             loop: false,
             rewind: false,
             //autoHeight: true,
             mouseDrag: true,
+            swipeAngle: false,
+            speed: 500,
             startIndex: page,
           })
 
-          t.events.on('indexChanged', (o) => {
+          t.events.on('transitionEnd', (o) => {
             setPage(o.index)
           })
 
           tinySlider.current = t
         }}
       >
-        {PagesJsx}
+        {pages.map((pageId) => (
+          <div className="swiper-slide" key={pageId}>
+          {createElement(page_to_component[pageId], { navigate }, null)}
+          </div>
+        ))}
       </div>
-      {navJsx}
+
+      <nav className={cn({'justify-around': pages.length < 3})}>
+        {pages.map((pageId, i) => (
+          <button
+            key={pageId}
+            className={cn({ selected: page === i })}
+            onClick={() => navigate(pageId)}
+          >
+            {page_to_title[pageId]}
+          </button>
+        ))}
+      </nav>
     </div>
   )
 }
-
-export default App

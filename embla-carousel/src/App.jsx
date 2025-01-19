@@ -1,33 +1,20 @@
-import { useState, useRef, useEffect } from 'react'
+import {
+  createElement, useState, useRef, useEffect,
+} from 'react'
 import './App.css'
 import cn from 'clsx'
+import {
+  pages, page_to_component, page_to_title,
+} from './pages'
 
 import useEmblaCarousel from 'embla-carousel-react'
 
-const PAGES = [ "Main", "Settings" ]
-const PAGE_TO_COMPONENT = {
-  "Main": ({navigate}) => (
-    <section style={{background: 'red'}}>
-      <h2>Main page</h2>
-      <button onClick={navigate.bind(null, "Settings")}>Open Settings</button>
-    </section>
-  ),
-  "Settings": () => (
-    <section style={{background: 'tan'}}>
-      Settings page
-    </section>
-  ),
-}
-const PAGE_TO_TITLE = {
-  "Main": "Main",
-  "Settings": "Settings",
-}
-
-function App() {
-  const [page, setPage] = useState(0)
+export default function App() {
+  const initialPage = 0
+  const [page, setPage] = useState(initialPage)
   const [embla, emblaApi] = useEmblaCarousel({
     loop: false,
-    startIndex: page,
+    startIndex: initialPage,
   })
 
   useEffect(() => {
@@ -40,41 +27,13 @@ function App() {
   }, [emblaApi])
 
   const navigate = (page) => {
-    const index = PAGES.indexOf(page)
+    const index = pages.indexOf(page)
     if (index === -1) return
 
-    setPage(index)
-    if (emblaApi) emblaApi.scrollTo(index)
+    if (emblaApi) {
+      emblaApi.scrollTo(index, false)
+    }
   }
-
-  const PagesJsx = PAGES.map((E, i) => {
-    const Comp = PAGE_TO_COMPONENT[E]
-    return (
-      <div className="embla__slide" key={i}>
-        <Comp navigate={navigate}/>
-      </div>
-    )
-  })
-
-  const navJsx = (
-    <nav className={PAGES.length < 3 ? 'justify-around' : ''}>
-      {
-        PAGES.map((p, i) => {
-          return (
-            <button
-              key={p}
-              className={cn({
-                selected: page === i,
-              })}
-              onClick={() => navigate(p)}
-            >
-              {PAGE_TO_TITLE[p]}
-            </button>
-          )
-        })
-      }
-    </nav>
-  )
 
   return (
     <div className="wrapper">
@@ -83,12 +42,25 @@ function App() {
         ref={embla}
       >
         <div className="embla__container">
-          {PagesJsx}
+          {pages.map((pageId) => (
+            <div className="embla__slide" key={pageId}>
+            {createElement(page_to_component[pageId], { navigate }, null)}
+            </div>
+          ))}
         </div>
       </div>
-      {navJsx}
+
+      <nav className={cn({'justify-around': pages.length < 3})}>
+        {pages.map((pageId, i) => (
+          <button
+            key={pageId}
+            className={cn({ selected: page === i })}
+            onClick={() => navigate(pageId)}
+          >
+            {page_to_title[pageId]}
+          </button>
+        ))}
+      </nav>
     </div>
   )
 }
-
-export default App

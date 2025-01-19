@@ -1,77 +1,38 @@
-import { useState, useRef } from 'react'
+import {
+  createElement, useState,
+} from 'react'
 import './App.css'
 import cn from 'clsx'
+import {
+  pages, page_to_component, page_to_title,
+} from './pages'
 
 import 'keen-slider/keen-slider.min.css'
 import { useKeenSlider } from 'keen-slider/react'
 
-const PAGES = [ "Main", "Settings" ]
-const PAGE_TO_COMPONENT = {
-  "Main": ({navigate}) => (
-    <section style={{background: 'red'}}>
-      <h2>Main page</h2>
-      <button onClick={navigate.bind(null, "Settings")}>Open Settings</button>
-    </section>
-  ),
-  "Settings": () => (
-    <section style={{background: 'tan'}}>
-      Settings page
-    </section>
-  ),
-}
-const PAGE_TO_TITLE = {
-  "Main": "Main",
-  "Settings": "Settings",
-}
-
-function App() {
-  const [page, setPage] = useState(0)
+export default function App() {
+  const initialPage = 0
+  const [page, setPage] = useState(initialPage)
   const [sliderRef, instanceRef] = useKeenSlider({
     slides: { spacing: 32 },
-    initial: page,
-    slideChanged(o) {
+    initial: initialPage,
+    animationEnded(o) {
       setPage(o.track.details.abs)
     }
   }, [])
 
   const navigate = (page) => {
-    const index = PAGES.indexOf(page)
+    const index = pages.indexOf(page)
     if (index === -1) return
 
-    setPage(index)
     if (instanceRef.current) {
-      instanceRef.current.track.to(index)
+      instanceRef.current.moveToIdx(
+        index,
+        true,
+      )
+      setPage(index)
     }
   }
-
-  const PagesJsx = PAGES.map((E, i) => {
-    const Comp = PAGE_TO_COMPONENT[E]
-    return (
-      <div className="keen-slider__slide" key={i}>
-        <Comp navigate={navigate}/>
-      </div>
-    )
-  })
-
-  const navJsx = (
-    <nav className={PAGES.length < 3 ? 'justify-around' : ''}>
-      {
-        PAGES.map((p, i) => {
-          return (
-            <button
-              key={p}
-              className={cn({
-                selected: page === i,
-              })}
-              onClick={() => navigate(p)}
-            >
-              {PAGE_TO_TITLE[p]}
-            </button>
-          )
-        })
-      }
-    </nav>
-  )
 
   return (
     <div className="wrapper">
@@ -79,11 +40,24 @@ function App() {
         className="keen-slider"
         ref={sliderRef}
       >
-        {PagesJsx}
+        {pages.map((pageId) => (
+          <div className="keen-slider__slide" key={pageId}>
+          {createElement(page_to_component[pageId], { navigate }, null)}
+          </div>
+        ))}
       </div>
-      {navJsx}
+
+      <nav className={cn({'justify-around': pages.length < 3})}>
+        {pages.map((pageId, i) => (
+          <button
+            key={pageId}
+            className={cn({ selected: page === i })}
+            onClick={() => navigate(pageId)}
+          >
+            {page_to_title[pageId]}
+          </button>
+        ))}
+      </nav>
     </div>
   )
 }
-
-export default App

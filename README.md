@@ -8,12 +8,12 @@ https://github.com/joe223/tiny-swiper
 
 1,2k stars
 
-Mouse dragging does not work
+Mouse dragging does not work.
 
 ```
 dist/index.html                   0.46 kB │ gzip:  0.29 kB
-dist/assets/index-De_j2IFm.css    1.45 kB │ gzip:  0.65 kB
-dist/assets/index-CSasH3tI.js   155.49 kB │ gzip: 50.93 kB
+dist/assets/index-BhivMKrt.css    1.37 kB │ gzip:  0.62 kB
+dist/assets/index-Ce5klioh.js   155.51 kB │ gzip: 50.94 kB
 ```
 
 ## Keen Slider
@@ -22,12 +22,10 @@ https://github.com/rcbyr/keen-slider
 
 4,7k stars
 
-Dragging doesn't look native.
-
 ```
 dist/index.html                   0.46 kB │ gzip:  0.29 kB
-dist/assets/index-E9uK4s2h.css    2.01 kB │ gzip:  0.79 kB
-dist/assets/index-Cl_ozdot.js   160.39 kB │ gzip: 52.99 kB
+dist/assets/index-CyLdvlwc.css    1.95 kB │ gzip:  0.77 kB
+dist/assets/index-BgS_JgrE.js   160.39 kB │ gzip: 53.00 kB
 ```
 
 ## Splide
@@ -38,11 +36,12 @@ https://github.com/Splidejs/splide
 
 Ironically, the only library to raise accessibility
 error.
+Otherwise, feels exactly like swiper.
 
 ```
-dist/index.html                   0.46 kB │ gzip:  0.30 kB
-dist/assets/index-DAgShN4V.css    6.43 kB │ gzip:  1.77 kB
-dist/assets/index-BCU94z3D.js   179.58 kB │ gzip: 61.55 kB
+dist/index.html                   0.46 kB │ gzip:  0.29 kB
+dist/assets/index-D1rm0Ml8.css    6.35 kB │ gzip:  1.75 kB
+dist/assets/index-CgciiA9g.js   179.59 kB │ gzip: 61.56 kB
 ```
 
 ## Tiny Slider
@@ -51,12 +50,12 @@ https://github.com/ganlanyuan/tiny-slider
 
 5,2k stars
 
-A lot of features work poorly, bad UX
+Gap isn't working.
 
 ```
-dist/index.html                   0.46 kB │ gzip:  0.29 kB
-dist/assets/index-DmraHV8u.css    3.60 kB │ gzip:  1.21 kB
-dist/assets/index-Br9GXkHl.js   177.79 kB │ gzip: 59.93 kB
+dist/index.html                   0.46 kB │ gzip:  0.30 kB
+dist/assets/index-C0WFpECf.css    3.53 kB │ gzip:  1.20 kB
+dist/assets/index-DSHLXuF5.js   177.82 kB │ gzip: 59.94 kB
 ```
 
 ## Embla
@@ -69,8 +68,8 @@ Did not manage to maintain 32px gap
 
 ```
 dist/index.html                   0.46 kB │ gzip:  0.29 kB
-dist/assets/index-DyX4UUFp.css    1.47 kB │ gzip:  0.65 kB
-dist/assets/index-BiGNohBr.js   164.85 kB │ gzip: 54.78 kB
+dist/assets/index-CoHsMTE9.css    1.37 kB │ gzip:  0.63 kB
+dist/assets/index-BlmNpVYf.js   164.85 kB │ gzip: 54.75 kB
 ```
 
 
@@ -82,8 +81,8 @@ https://github.com/glidejs/glide
 
 ```
 dist/index.html                   0.46 kB │ gzip:  0.29 kB
-dist/assets/index-C3U6kRuT.css    2.29 kB │ gzip:  0.87 kB
-dist/assets/index-Cc3_b64s.js   166.79 kB │ gzip: 53.30 kB
+dist/assets/index-DQAd-rWh.css    2.21 kB │ gzip:  0.85 kB
+dist/assets/index-CccpI2Gc.js   166.79 kB │ gzip: 53.31 kB
 ```
 
 ## Swiper
