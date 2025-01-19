@@ -1,86 +1,52 @@
-import { useState, useRef } from 'react'
+import { createElement, useState, useRef } from 'react'
 import './App.css'
 import cn from 'clsx'
-
 import {
-  Swiper, SwiperSlide,
-} from "swiper/react"
-import "swiper/css"
+  pages, page_to_component, page_to_title
+} from './pages.tsx'
 
-const PAGES = [ "Main", "Settings" ]
-const PAGE_TO_COMPONENT = {
-  "Main": ({navigate}) => (
-    <section style={{background: 'red'}}>
-      <h2>Main page</h2>
-      <button onClick={navigate.bind(null, "Settings")}>Open Settings</button>
-    </section>
-  ),
-  "Settings": () => (
-    <section style={{background: 'tan'}}>
-      Settings page
-    </section>
-  ),
-}
-const PAGE_TO_TITLE = {
-  "Main": "Main",
-  "Settings": "Settings",
-}
+import { Swiper, SwiperSlide } from 'swiper/react'
+import 'swiper/css'
 
-function App() {
+export default function App() {
   const [page, setPage] = useState(0)
   const swiper = useRef(null)
 
   const navigate = (page) => {
-    const index = PAGES.indexOf(page)
+    const index = pages.indexOf(page)
     if (index === -1) return
 
-    setPage(index)
-    if (swiper.current) swiper.current.slideTo(index)
+    if (swiper.current) {
+      swiper.current.slideTo(index)
+      setPage(index)
+    }
   }
-
-  const PagesJsx = PAGES.map((E, i) => {
-    const Comp = PAGE_TO_COMPONENT[E]
-    return (
-      <SwiperSlide key={i}>
-        <Comp navigate={navigate}/>
-      </SwiperSlide>
-    )
-  })
-
-  const navJsx = (
-    <nav className={PAGES.length < 3 ? 'justify-around' : ''}>
-      {
-        PAGES.map((p, i) => {
-          return (
-            <button
-              key={p}
-              className={cn({
-                selected: page === i,
-              })}
-              onClick={() => navigate(p)}
-            >
-              {PAGE_TO_TITLE[p]}
-            </button>
-          )
-        })
-      }
-    </nav>
-  )
 
   return (
     <div className="wrapper">
       <Swiper
         spaceBetween="32"
-        onSlideChange={(e) => {
-          setPage(e.activeIndex);
-        }}
+        onSlideChange={(e) => setPage(e.activeIndex)}
         onSwiper={(e) => (swiper.current = e)}
       >
-        {PagesJsx}
+        {pages.map((pageId) => (
+          <SwiperSlide key={pageId}>
+          {createElement(page_to_component[pageId], { navigate }, null)}
+          </SwiperSlide>
+        ))}
       </Swiper>
-      {navJsx}
+
+      <nav className={cn({'justify-around': pages.length < 3})}>
+        {pages.map((pageId, i) => (
+          <button
+            key={pageId}
+            className={cn({ selected: page === i })}
+            onClick={() => navigate(pageId)}
+          >
+            {page_to_title[pageId]}
+          </button>
+        ))}
+      </nav>
     </div>
   )
 }
-
-export default App
